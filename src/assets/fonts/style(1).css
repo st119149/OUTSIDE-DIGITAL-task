@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Lab Grotesque';
+    src: local('Lab Grotesque Light'), local('Lab-Grotesque-Light'),
+        url('LabGrotesque-Light.woff2') format('woff2'),
+        url('LabGrotesque-Light.woff') format('woff'),
+        url('LabGrotesque-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }

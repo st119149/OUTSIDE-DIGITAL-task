@@ -1,0 +1,269 @@
+@import './variables';
+
+@font-face {
+    font-family: 'Lab Grotesque';
+    src: local('Lab Grotesque Light'), local('Lab-Grotesque-Light'),
+        url('./assets/fonts/LabGrotesque-Light.woff2') format('woff2'),
+        url('./assets/fonts/LabGrotesque-Light.woff') format('woff'),
+        url('./assets/fonts/LabGrotesque-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lab Grotesque';
+    src: local('Lab Grotesque Medium'), local('Lab-Grotesque-Medium'),
+        url('./assets/fonts/LabGrotesque-Medium.woff2') format('woff2'),
+        url('./assets/fonts/LabGrotesque-Medium.woff') format('woff'),
+        url('./assets/fonts/LabGrotesque-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Lab Grotesque';
+    src: local('Lab Grotesque Regular'), local('Lab-Grotesque-Regular'),
+        url('./assets/fonts/LabGrotesque-Regular.woff2') format('woff2'),
+        url('./assets/fonts/LabGrotesque-Regular.woff') format('woff'),
+        url('./assets/fonts/LabGrotesque-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    font-family: 'Lab Grotesque';
+    font-size: 10px;
+}
+
+
+.text-button {
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: $red;
+    border: none;
+    background: none;
+    transition: 0.1s ease all;
+
+    &:hover {
+        color: $orange;
+    }
+}
+
+.button {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    padding: 16px 35px;
+    min-width: 280px;
+    background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+    box-shadow: 0px 0px 24px rgba(234, 0, 41, 0.33);
+    border-radius: 6px;
+    transition: 0.1s ease all;
+    border: none;
+
+    &:hover {
+        background-color: $red;
+    }
+
+    &:disabled {
+        background: $gray;
+        box-shadow: none;
+    }
+}
+
+.button_outline {
+    min-width: 0;
+    border: 1px solid #fff;
+    background: transparent;
+
+    &:hover {
+        background: #fff;
+        color: #000;
+    }
+}
+
+.button_small {
+    font-size: 12px;
+    padding: 11px 35px;
+}
+
+
+.checkbox {
+    display: block;
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+
+    &+label {
+        position: relative;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #DFE3E6;
+        border-radius: 6px;
+        transition: 0.1s ease all;
+        cursor: pointer;
+
+        &:hover {
+            border-color: #000;
+        }
+
+        &::before {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 12px;
+            background-color: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 3px;
+            left: 10px;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 6px;
+            background-color: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 8px;
+            left: 5px;
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+    }
+
+    &:checked+label {
+        background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+        &:hover {
+            background-color: $red;
+            border-color: #DFE3E6;
+        }
+        &::after, &::before {
+            opacity: 1;
+        }
+    }
+
+    &:disabled+label {
+        background: $gray;
+        border-color: $gray;
+
+        &:hover {
+            border-color: $gray;
+        }
+
+        &:after, &::before {
+            opacity: 1;
+        }
+    }
+}
+
+
+
+.tag {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    &+label {
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 50px;
+        background-color: $gray;
+        transition: 0.1s ease all;
+        cursor: pointer;
+
+        & span {
+            opacity: 0.6;
+        }
+    }
+
+    &:checked+label {
+        color: #fff;
+        background: linear-gradient(255.35deg, #DC3131 0.83%, rgba(255, 79, 79, 0) 108.93%), #FF5E56;
+    }
+
+    &:checked+label span {
+        opacity: 1;
+    }
+}
+
+
+
+.input {
+    position: relative;
+
+    input {
+        min-width: 288px;
+        padding: 10px;
+        background: none;
+        border: 1px solid #DFE3E6;
+        border-radius: 3px;
+        font-size: 14px;
+        transition: 0.1s ease all;
+        outline: none;
+
+        &::placeholder {
+            color: #DFE3E6;
+        }
+    
+        &:hover {
+            border-color: #000;
+        }
+    
+        &:disabled {
+            border-color: $gray;
+            &::placeholder {
+                color: $gray;
+            }
+        }
+    
+        &::before {
+            content: '';
+            display: block;
+            width: 100vw;
+            height: 10px;
+            background-color: $red;
+            color: $red;
+            opacity: 0;
+        }
+    }
+
+    .input-error {
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        z-index: 1;
+        color: $red;
+        opacity: 0;
+    }
+
+    &__error {
+        input {
+            border-color: $red;
+            &:hover {
+                border-color: $red;
+            }
+        }
+
+        .input-error {
+            opacity: 1;
+        }
+    }
+
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+
+
+
