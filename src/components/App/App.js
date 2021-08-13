@@ -9,7 +9,13 @@ function App() {
 
   const [taxDeductionHistory, setTaxDeductionHistory] = React.useState({});
 
-  React.useEffect(() => console.log(taxDeductionHistory), [taxDeductionHistory]);
+  React.useEffect(() => {
+    if (Object.keys(taxDeductionHistory).length) {
+      console.log(taxDeductionHistory);
+      alert('Объект выведен в консоль');
+    }
+  }, [taxDeductionHistory]);
+
 
   const addToHistory = item => {
     setTaxDeductionHistory({
@@ -33,7 +39,6 @@ function App() {
         onClick={onShowPopup}
         className={!popupIsActive ? "button button_outline wrapper__button active" : "button button_outline wrapper__button"}
       >Налоговый вычет</button>
-
 
     </div>
   )
