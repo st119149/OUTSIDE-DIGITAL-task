@@ -64,40 +64,44 @@ function Popup({ addToHistory, onClosePopup }) {
     });
   };
 
-  const calculateTaxDeduction = e => {
-    e.preventDefault();
+  const calculateYears = salary => {
+    const maxSumDeduction = 260000;
+    const maxYearDeduction = Math.round(salary * 12 * 0.13);
+    const yearsCount = Math.ceil(260000 / maxYearDeduction);
+    const years = [];
+    for (let i = 1; i <= yearsCount; i++) {
+      if (i !== yearsCount)
+        years.push({
+          year: i,
+          maxYearDeduction,
+          earlyRepayment: false
+        })
+      else
+        years.push({
+          year: i,
+          maxYearDeduction: maxSumDeduction - maxYearDeduction * (yearsCount - 1),
+          earlyRepayment: false
+        })
+    }
+    return years;
+  }
 
+  const calculateYearsHandler = e => {
+    e.preventDefault();
     if (!salaryError) {
-      const maxSumDeduction = 260000;
-      const maxYearDeduction = Math.round(salary * 12 * 0.13);
-      const yearsCount = Math.ceil(260000 / maxYearDeduction);
-      const years = [];
-      for (let i = 1; i <= yearsCount; i++) {
-        if (i !== yearsCount)
-          years.push({
-            year: i,
-            maxYearDeduction,
-            earlyRepayment: false
-          })
-        else
-          years.push({
-            year: i,
-            maxYearDeduction: maxSumDeduction - maxYearDeduction * (yearsCount - 1),
-            earlyRepayment: false
-          })
-      }
-      setYears(years);
+      setYears(calculateYears(salary));
     }
     else
       setSalaryDirty(true);
   }
+
 
   const HistoryHandler = e => {
     e.preventDefault();
     if (!salaryError && !decreasedError)
       addToHistory({
         salary,
-        years,
+        years: years.length ? years : calculateYears(salary),
         decreased
       });
     else {
@@ -132,7 +136,7 @@ function Popup({ addToHistory, onClosePopup }) {
           <label className="input-error">{salaryError}</label>
         </div>
 
-        <button className="text-button popup__text-button" onClick={calculateTaxDeduction}>Рассчитать</button>
+        <button className="text-button popup__text-button" onClick={calculateYearsHandler}>Рассчитать</button>
 
         {
           !years.length ?
@@ -202,7 +206,7 @@ function Popup({ addToHistory, onClosePopup }) {
           disabled={formValid ? false : true}
         >Добавить</button>
       </form>
-      
+
       <button className="popup__close" onClick={onClosePopup}></button>
 
     </div>
